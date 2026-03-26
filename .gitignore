@@ -8,8 +8,7 @@ node_modules
 .pnp.js
 .pnp
 
-# frontend
-frontend/.vite/
+
 
 # Testing
 /coverage
