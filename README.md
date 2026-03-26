@@ -1,0 +1,70 @@
+# mern-blog-website
+
+## Description
+<p>mern-blog-website is a MERN Stack application, implementing a blogging platform. 
+In order for the middlewares/errorsMiddleware.js to 
+operation with its stack trace, in the config.env file, NODE_ENV needs to be in
+lowercase, i.e, 'development' or 'production'.</p>
+
+<p>Populate the database with users and posts. See "scripts" in package.json</p>
+
+## Features
+- Node.js
+- Express.js
+- MongoDB
+- Nodemon
+- Colors
+- Dotenv
+- Middlewares
+
+### Create the config.env file in the backend / config directory
+```env
+# Useful Variables
+PORT=
+NODE_ENV='development'
+BACKEND_URL='http://localhost'
+FRONTEND_URL='http://localhost:5173'
+PAGINATION_LIMIT=
+CURRENCY="USD"
+
+# MongoDB Setup
+MONGO_DB_URI=
+
+# JSON Web Token
+JWT_SECRET=
+JWT_EXPIRES_TIME='604800000ms'
+JWT_LIFETIME='3.1104e10ms'
+
+# Cookie Token
+COOKIE_EXPIRES_TIME=21d
+
+
+```
+
+### Start the app
+```shell
+npm install
+```
+or
+```shell
+yarn or yarn install
+```
+then
+```shell
+npm run server
+```
+or
+
+```shell
+yarn server
+```
+
+### Run production mode
+```shell
+npm run prod
+```
+or
+
+```shell
+yarn prod
+```
