@@ -7,24 +7,89 @@ import validator from 'validator';
 /****************************** schema ******************************/
 const userSchema = new Schema(
 	{
-		fullname: {
-			type: String,
-			trim: true,
-			required: true,
+		personal_info: {
+			fullname: {
+				type: String,
+				trim: true,
+				required: true,
+			},
+			email: {
+				type: String,
+				trim: true,
+				required: [true, 'Email is required!'],
+				unique: [true, 'Email already exists!'],
+				validate: [validator?.isEmail, 'Enter a valid email address!'],
+			},
+			password: {
+				type: String,
+				trim: true,
+				required: [true, 'Password is required!'],
+				minLength: [8, 'Password must be at least eight (8) characters!'],
+				select: false,
+			},
+			username: {
+				type: String,
+				trim: true,
+				required: [true, 'Username is required!' ],
+				unique: [true, 'Username already exists!'],
+			},
+			bio: {
+				type: String,
+				maxlength: [200, 'Biography should not be more than 200 characters!'],
+				default: "",
+			},
+			profile_image: {
+				public_id: {
+					type: String,
+					required: true
+				},
+				url: {
+					type: String,
+					required: true
+				}
+			},
+
 		},
-		email: {
-			type: String,
-			trim: true,
-			required: [true, 'Email is required!'],
-			unique: [true, 'Email already exists!'],
-			validate: [validator?.isEmail, 'Enter a valid email address!'],
+		account_info:{
+			total_posts: {
+				type: Number,
+				default: 0
+			},
+			total_reads: {
+				type: Number,
+				default: 0
+			},
 		},
-		password: {
-			type: String,
-			trim: true,
-			required: [true, 'Password is required!'],
-			minLength: [8, 'Password must be at least eight (8) characters!'],
-			select: false,
+		social_links: {
+			codepen: {
+				type: String,
+				default: "",
+			},
+			facebook: {
+				type: String,
+				default: "",
+			},
+			github: {
+				type: String,
+				default: "",
+			},
+			instagram: {
+				type: String,
+				default: "",
+			},
+			twitter: {
+				type: String,
+				default: "",
+			},
+			website: {
+				type: String,
+				default: "",
+			}
+		},
+		posts: {
+			type: [ Schema.Types.ObjectId ],
+			ref: 'posts',
+			default: [],
 		},
 		role: {
 			type: String,
@@ -39,7 +104,9 @@ const userSchema = new Schema(
 		resetPasswordExpire: Date,
 	},
 	{
-		timestamps: true,
+		timestamps: {
+			createdAt: 'joinedAt'
+		}
 	}
 );
 
