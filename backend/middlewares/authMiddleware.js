@@ -5,7 +5,7 @@ import messageHandler from '../utils/messageHandlerUtil.js';
 import ErrorHandler from '../utils/errorHandlerUtil.js';
 
 export const authenticateUser = asyncHandler(async (req, res, next) => {
-   const token = req.cookies?.access_token;
+   const token = req.cookies?.blog_access;
    
    if (!token) {
       return next(messageHandler(res, false, 'User must be signed in!', 401));

@@ -9,9 +9,9 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "server": "SET NODE_ENV=development& node_modules/.bin/nodemon server.js",
+    "server": "SET NODE_ENV=development& nodemon server.js",
     "client": "npm start --prefix ../frontend",
-    "dev": "node_modules/.bin/concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prod": "SET NODE_ENV=production& node server.js",
     "seed:data": "node utils/seederUtil.js"
   },

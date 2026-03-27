@@ -59,4 +59,4 @@ lerna-debug.log*
 
 # Package Manager
 package-lock.json
-yarn.lock
+backend/yarn.lock

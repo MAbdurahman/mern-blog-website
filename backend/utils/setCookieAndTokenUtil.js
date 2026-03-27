@@ -1,4 +1,4 @@
-import { getFirstName } from '../utils/functionsUtil.js';
+import { getFirstName } from './functionsUtil.js';
 
 export default function setCookieAndToken(user, res, statusCode) {
    const milliseconds_minute = 60000;
@@ -11,7 +11,7 @@ export default function setCookieAndToken(user, res, statusCode) {
    const token = user.generateJsonWebToken();
    const { password: pass, ...rest } = user._doc;
 
-   res.cookie('access_token', token, { httpOnly: true, expires: expiryDate })
+   res.cookie('blog_access', token, { httpOnly: true, expires: expiryDate })
 		.status(statusCode)
 		.json({
 			message: `${getFirstName(
