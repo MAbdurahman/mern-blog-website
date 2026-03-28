@@ -27,12 +27,6 @@ const userSchema = new Schema(
 				minLength: [8, 'Password must be at least eight (8) characters!'],
 				select: false,
 			},
-			username: {
-				type: String,
-				trim: true,
-				required: [true, 'Username is required!' ],
-				unique: [true, 'Username already exists!'],
-			},
 			bio: {
 				type: String,
 				maxlength: [200, 'Biography should not be more than 200 characters!'],
@@ -47,8 +41,7 @@ const userSchema = new Schema(
 					type: String,
 					required: true
 				}
-			},
-
+			}
 		},
 		account_info:{
 			total_posts: {
