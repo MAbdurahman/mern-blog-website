@@ -10,7 +10,7 @@ const postSchema = new Schema({
       type: String,
       // required: true,
    },
-   des: {
+   description: {
       type: String,
       maxlength: 200,
       // required: true
@@ -56,7 +56,6 @@ const postSchema = new Schema({
    }
 },
    {
-
       timestamps: {
          createdAt: 'publishedAt'
       }
