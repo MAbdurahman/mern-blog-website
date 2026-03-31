@@ -42,7 +42,6 @@ const notificationSchema = new Schema({
    {
       timestamps: true
 
-
    });
 
 const Notification = model('notifications', notificationSchema);

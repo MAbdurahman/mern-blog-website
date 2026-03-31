@@ -2,13 +2,13 @@
 import dotenv from 'dotenv';
 import colors from 'colors';
 import connectDatabase from '../configs/databaseConfig.js';
-import Product from '../models/productModel.js';
+import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
-import products from '../data/productsData.js';
+import posts from '../data/postsData.js';
 import users from '../data/usersData.js';
 
 /************************* configure setup *************************/
-dotenv.config({path: './configs/config.env'});
+dotenv.config({path: '../configs/config.env'});
 colors.enabled = true;
 
 /************************* connect MongoDB *************************/
@@ -17,19 +17,19 @@ connectDatabase().then(() => {});
 /********************** insert resources to the database **********************/
 const insertSeededResources = async () => {
    try {
-      await Product?.deleteMany();
+      await Post?.deleteMany();
       await User?.deleteMany();
 
       const createdUsers = await User?.insertMany(users);
       const adminUser = createdUsers[0]?._id;
 
-      const createdProducts = products?.map(product => {
+      const createdPosts = posts?.map(post => {
          return {
-            ...product,
+            ...post,
             adminUser: adminUser
          }
       });
-      await Product?.insertMany(createdProducts);
+      await Post?.insertMany(createdPosts);
 
       console.log(`  ➔  Seeded Data:  Successfully inserted data to database!`.green.italic);
       process.exit(0);
@@ -42,7 +42,7 @@ const insertSeededResources = async () => {
 /********************** delete resources from the database **********************/
 const deleteSeededResources = async () => {
    try {
-      await Product?.deleteMany();
+      await Post?.deleteMany();
       await User?.deleteMany();
 
       console.log(`  ➔  Seeded Data:  Successfully deleted data from database!`.green.italic);

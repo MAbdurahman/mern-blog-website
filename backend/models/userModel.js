@@ -4,7 +4,6 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import validator from 'validator';
 import moment from 'moment';
-import defaultUser from '../img/default-user.png';
 
 /****************************** schema ******************************/
 const userSchema = new Schema({
@@ -34,16 +33,15 @@ const userSchema = new Schema({
             default: ''
          },
          profile_image: {
-            url: {
-               type: String,
-               required: true,
-               default: defaultUser
-               ,
                public_id: {
                   type: String,
                   required: true,
                   default: () => crypto.randomUUID() // Generate UUID by default
-               }
+               },
+            url: {
+               type: String,
+               required: true,
+               default: 'https://res.cloudinary.com/mdbdrrhm/image/upload/v1774959178/l1raeqzzgcnheamte1eh.png' // image by default
             }
          },
          account_info: {
@@ -90,6 +88,7 @@ const userSchema = new Schema({
          role: {
             type: String,
             enum: ['user', 'admin'],
+            required: true,
             default: 'user'
          },
          lastLoginTime: {
@@ -126,12 +125,11 @@ userSchema.pre('save', async function (next) {
    next();
 });
 
-userSchema.virtual('formattedLastLoginTime').get(function () {
-   if (this.isModified('lastLoginTime')) {
-      return moment(this.lastLoginTime).format('MMMM Do YYYY, h:mm:ss a');
-   }
-   return null;
-})
+/******************** format lastLoginTime **********************/
+userSchema.methods.formatLastLoginTime = async function () {
+   this.lastLoginTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+   return this.save();
+};
 
 /********************* toggle isLoggedIn ***********************/
 userSchema.methods.toggleIsLoggedIn = function () {
