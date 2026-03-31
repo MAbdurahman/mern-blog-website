@@ -8,15 +8,15 @@ import {
 } from './emailTemplates.js';
 import {response} from 'express';
 
-export async function sendVerificationEmail(email, name, verificationToken, next) {
+export async function sendVerificationEmail(email, fullname, verificationToken, next) {
    const recipient = [{email}];
-   const firstName = getFirstName(name);
+   const firstName = getFirstName(fullname);
    try {
       await mailtrapClient.send({
          from: sender,
          to: recipient,
          subject: "Verify Email",
-         html: verificationEmailTemplate.replace("{verificationCode}", verificationToken).replace('{name}', firstName),
+         html: verificationEmailTemplate.replace("{verificationCode}", verificationToken).replace('{fullname}', firstName),
          category: "Verification Email",
       });
    }
@@ -27,15 +27,15 @@ export async function sendVerificationEmail(email, name, verificationToken, next
    }
 }//end of sendVerificationEmail Function
 
-export async function sendWelcomeEmail(email, name, next) {
+export async function sendWelcomeEmail(email, fullname, next) {
    const recipient = [{email}];
-   const firstName = getFirstName(name);
+   const firstName = getFirstName(fullname);
    try {
       await mailtrapClient.send({
          from: sender,
          to: recipient,
          subject: "Welcome Email",
-         html: welcomeEmailTemplate.replace('{name}', firstName),
+         html: welcomeEmailTemplate.replace('{fullname}', firstName),
          category: "Welcome Email",
 
       });
@@ -45,15 +45,15 @@ export async function sendWelcomeEmail(email, name, next) {
    }
 }//end of sendWelcomeEmail Function
 
-export async function sendPasswordResetEmail(email, name, resetURL, next ) {
+export async function sendPasswordResetEmail(email, fullname, resetURL, next ) {
    const recipient = [{ email }];
-   const firstName = getFirstName(name);
+   const firstName = getFirstName(fullname);
    try {
       await mailtrapClient.send({
          from: sender,
          to: recipient,
          subject: "Password Reset Request",
-         html: passwordResetRequestTemplate.replace('{name}', firstName).replace('{resetURL}', resetURL),
+         html: passwordResetRequestTemplate.replace('{fullname}', firstName).replace('{resetURL}', resetURL),
          category: "Password Reset Request",
       });
    }
@@ -62,16 +62,16 @@ export async function sendPasswordResetEmail(email, name, resetURL, next ) {
    }
 }//end of sendPasswordResetEmail Function
 
-export async function sendResetSuccessEmail(email, name, next) {
+export async function sendResetSuccessEmail(email, fullname, next) {
    const recipient = [{ email }];
-   const firstName = getFirstName(name);
+   const firstName = getFirstName(fullname);
 
    try {
       await mailtrapClient.send({
          from: sender,
          to: recipient,
          subject: "Password Reset Success",
-         html:passwordResetSuccessTemplate.replace('{name}', firstName),
+         html:passwordResetSuccessTemplate.replace('{fullname}', firstName),
          category: "Password Reset Success",
       });
    }

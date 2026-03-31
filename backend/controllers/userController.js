@@ -59,7 +59,7 @@ export const signUpUser = asyncHandler(async (req, res, next) => {
       verificationToken
    });
 
-   await sendVerificationEmail(email, verificationToken);
+   await sendVerificationEmail(email, fullname, verificationToken, next);
    const {password: pass, ...rest} = newUser._doc;
 
    res.status(201).json({

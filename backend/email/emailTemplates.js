@@ -1,7 +1,7 @@
 
 export const verificationEmailTemplate = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
    <head>
       <meta charset="UTF-8">
@@ -20,7 +20,7 @@ export const verificationEmailTemplate = `
       </div>
       <div
          style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-         <p>Hello&nbsp;{name},</p>
+         <p>Hello&nbsp;{fullname},</p>
          <p>Thank you for signing up! Your verification code is:</p>
          <div style="text-align: center; margin: 30px 0;">
             <span
@@ -29,7 +29,7 @@ export const verificationEmailTemplate = `
          <p>Enter this code on the verification page to complete your registration.</p>
          <p>This code will expire in 15 minutes for security considerations.</p>
          <p>If you did not create an account with us, please ignore this email.</p>
-         <p>Best regards,<br>MERN Auth Advance Team</p>
+         <p>Best regards,<br>MERN Blog Team</p>
       </div>
       <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
          <p>This is an automated email, please do not reply.</p>
@@ -40,7 +40,7 @@ export const verificationEmailTemplate = `
 
 export const passwordResetSuccessTemplate = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,7 +55,7 @@ export const passwordResetSuccessTemplate = `
     <h1 style="font-family: 'Lora', serif; color: white; margin: 0;">Password Reset Success</h1>
 </div>
 <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello&nbsp;{name},</p>
+    <p>Hello&nbsp;{fullname},</p>
     <p>This correspondence is to confirm that your password has been reset successfully.</p>
     <div style="text-align: center; margin: 30px 0;">
         <div style="background-color: #39a503; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; display: inline-block; font-size: 32px;">
@@ -70,7 +70,7 @@ export const passwordResetSuccessTemplate = `
         <li>Avoid using the same password across multiple sites</li>
     </ul>
     <p>Thank you for helping us keep your account secure.</p>
-    <p>Best regards,<br>MERN Auth Advance Team</p>
+    <p>Best regards,<br>MERN Blog Team</p>
 </div>
 <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated email, please do not reply.</p>
@@ -81,7 +81,7 @@ export const passwordResetSuccessTemplate = `
 
 export const passwordResetRequestTemplate = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,7 +99,7 @@ export const passwordResetRequestTemplate = `
         <a href="{resetURL}" style="background-color: #154260; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
     </div>
     <p>This link will expire in 1 hour for security considerations.</p>
-    <p>Best regards,<br>MERN Auth Advance Team</p>
+    <p>Best regards,<br>MERN Blog Team</p>
 </div>
 <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated email, please do not reply.</p>
@@ -110,7 +110,7 @@ export const passwordResetRequestTemplate = `
 
 export const welcomeEmailTemplate = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
    <head>
       <meta charset="UTF-8">
@@ -130,14 +130,12 @@ export const welcomeEmailTemplate = `
       </div>
       <div
          style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-         <p>Hello&nbsp;{name},</p>
-         <p>Thanks for signing up with MERN Auth Advance. As a new member, you will enjoy special offers and exclusive
-            deals, exciting new
-            product announcements, and our unique take on developing trends.</p>
-         <p>We take as much pride and care in what we offer as you do in your researching. That means you can trust and
-            rely on us (and our
-            products) to help you reach new heights in your endeavors.</p>
-         <p>Best regards,<br>MERN Auth Advance Team</p>
+         <p>Hello&nbsp;{fullname},</p>
+         <p>Thanks for signing up with MERN Blog. We are trilled to have you join our community. As a member, you will find insights on web design, web development, and programming.</p>
+         <p>We aim to provide valuable content that inspires and inform. Feel free to check out our last posts, comment on them, and follow us on social media for updates.</p>
+         <p>We take as much pride and care in what we offer as you do in your learning. That means you can trust and
+            rely on us (and our content) to help you reach new heights in your career evolution.</p>
+         <p>Best regards,<br>MERN Blog Team</p>
       </div>
       <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
          <p>This is an automated email, please do not reply.</p>
