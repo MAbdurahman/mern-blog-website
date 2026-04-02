@@ -4,6 +4,23 @@ import asyncHandler from '../utils/asyncHandlerUtil.js';
 import messageHandler from '../utils/messageHandlerUtil.js';
 import ErrorHandler from '../utils/errorHandlerUtil.js';
 
+export const authenticateBearerToken = asyncHandler(async (req, res, next) => {
+   let token;
+   let authHeader = req.headers.authorization || req.headers.Authorization;
+
+   if (authHeader && authHeader.startsWith('Bearer ')) {
+      // token = authHeader.substring(2);
+      token = authHeader.split(' ')[1];
+      if (!token) {
+         return messageHandler(res, false, 'User must be logged in', 401);
+      }
+   }
+   const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+   req.user = await User?.findById(decodedData.id);
+
+   next()
+});
+
 export const authenticateUser = asyncHandler(async (req, res, next) => {
    const token = req.cookies?.blog_access;
    
