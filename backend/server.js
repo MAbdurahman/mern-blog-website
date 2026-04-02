@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import colors from 'colors';
 import app from './app/app.js'
 import connectDatabase from './configs/databaseConfig.js';
+import connectCloudinary from './configs/cloudinaryConfig.js';
 
 /************************* configure setup *************************/
 dotenv.config({path: './configs/config.env', quiet: true});
@@ -22,7 +23,7 @@ const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost';
 
 /************************* connect MongoDB and Cloudinary *************************/
 connectDatabase().then(() => {});
-
+/*connectCloudinary().then(() => {});*/
 /********************************** app listening *********************************/
 const server = app.listen(PORT, () => {
    console.log(`  ➔  Server:  Listening at ${BACKEND_URL}:${PORT} in ${NODE_ENV} mode!`.italic.bold.yellow);

@@ -23,6 +23,7 @@
     "@exortek/express-mongo-sanitize": "^1.1.1",
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.2",
+    "cloudinary": "^2.9.0",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",

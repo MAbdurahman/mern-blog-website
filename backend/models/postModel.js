@@ -6,7 +6,7 @@ const postSchema = new Schema({
       type: String,
       required: true,
    },
-   banner: {
+   bannerImage: {
       type: String,
       // required: true,
    },

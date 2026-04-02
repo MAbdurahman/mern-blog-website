@@ -26,7 +26,7 @@ const insertSeededResources = async () => {
       const createdPosts = posts?.map(post => {
          return {
             ...post,
-            adminUser: adminUser
+            author: adminUser
          }
       });
       await Post?.insertMany(createdPosts);

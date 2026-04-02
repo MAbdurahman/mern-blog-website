@@ -10,7 +10,8 @@ import {
    updateUserProfileAdmin,
    userForgotPassword, userResetPassword,
    verifyUserEmail
-} from '../controllers/userController.js';
+} from '../controllers/authController.js';
+import {authenticateUser, authorizeRoles} from '../middlewares/authMiddleware.js';
 
 /************************* variables *************************/
 const router = express.Router();
