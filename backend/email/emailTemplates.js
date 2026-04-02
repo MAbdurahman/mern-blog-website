@@ -131,8 +131,8 @@ export const welcomeEmailTemplate = `
       <div
          style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
          <p>Hello&nbsp;{fullname},</p>
-         <p>Thanks for signing up with MERN Blog. We are trilled to have you join our community. As a member, you will find insights on web design, web development, and programming.</p>
-         <p>We aim to provide valuable content that inspires and inform. Feel free to check out our last posts, comment on them, and follow us on social media for updates.</p>
+         <p>Thanks for signing up with MERN Blog. We are thrilled to have you join our community. As a member, you will find insights on web design, web development, and programming.</p>
+         <p>We aim to provide valuable content that inspires and inform. Feel free to check out our latest posts, comment on them, and follow us on social media for updates.</p>
          <p>We take as much pride and care in what we offer as you do in your learning. That means you can trust and
             rely on us (and our content) to help you reach new heights in your career evolution.</p>
          <p>Best regards,<br>MERN Blog Team</p>

@@ -33,11 +33,11 @@ const userSchema = new Schema({
             default: ''
          },
          profile_image: {
-               public_id: {
-                  type: String,
-                  required: true,
-                  default: () => crypto.randomUUID() // Generate UUID by default
-               },
+            public_id: {
+               type: String,
+               required: true,
+               default: () => crypto.randomUUID() // Generate UUID by default
+            },
             url: {
                type: String,
                required: true,
@@ -84,31 +84,32 @@ const userSchema = new Schema({
             type: [Schema.Types.ObjectId],
             ref: 'posts',
             default: []
-         },
-         role: {
-            type: String,
-            enum: ['user', 'admin'],
-            required: true,
-            default: 'user'
-         },
-         lastLoginTime: {
-            type: Date,
-            default: Date.now
-         },
-         isLoggedIn: {
-            type: Boolean,
-            default: false
-         },
-         isVerified: {
-            type: Boolean,
-            required: true,
-            default: false
-         },
-         resetPasswordToken: String,
-         resetPasswordExpiresAt: Date,
-         verificationToken: String,
-         verificationTokenExpiresAt: Date
-      }
+         }
+      },
+      role: {
+         type: String,
+         enum: ['user', 'admin'],
+         required: true,
+         default: 'user'
+      },
+      lastLoginTime: {
+         type: Date,
+         default: ''
+      },
+      isLoggedIn: {
+         type: Boolean,
+         default: false
+      },
+      isVerified: {
+         type: Boolean,
+         required: true,
+         default: false
+      },
+      resetPasswordToken: String,
+      resetPasswordExpiresAt: Date,
+      verificationToken: String,
+      verificationTokenExpiresAt: Date
+
    },
    {
       timestamps: {
@@ -118,16 +119,16 @@ const userSchema = new Schema({
 );
 
 /************** hash password before saving user ****************/
-userSchema.pre('save', async function (next) {
-   if (this.isModified('password')) {
-      this.password = await bcrypt.hash(this.password, 10);
+userSchema.pre('save', async function () {
+   if (!this.isModified('password')) {
+      return;
    }
-   next();
+   this.password = await bcrypt.hash(this.password, 10);
 });
 
 /******************** format lastLoginTime **********************/
-userSchema.methods.formatLastLoginTime = async function () {
-   this.lastLoginTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+userSchema.methods.updateLastLoginTime = async function () {
+   this.lastLoginTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
    return this.save();
 };
 

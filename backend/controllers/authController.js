@@ -50,16 +50,19 @@ export const signUpUser = asyncHandler(async (req, res, next) => {
    }
 
    /************************* create and save a user *************************/
-   const verificationToken = await User.generateVerificationToken();
+   const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
 
-   const newUser = await User.create({
+   const newUser = await new User({
       fullname,
       email,
       password,
-      verificationToken
+      verificationToken,
+      verificationTokenExpiresAt: Date.now() + 60 * 60 * 1000 * 24 // 24 hours
    });
 
-   await sendVerificationEmail(email, fullname, verificationToken, next);
+   await newUser.save();
+
+   /*await sendVerificationEmail(email, fullname, verificationToken);*/
    const {password: pass, ...rest} = newUser._doc;
 
    res.status(201).json({

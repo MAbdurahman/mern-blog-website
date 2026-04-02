@@ -8,7 +8,7 @@ import {
 } from './emailTemplates.js';
 import {response} from 'express';
 
-export async function sendVerificationEmail(email, fullname, verificationToken, next) {
+export async function sendVerificationEmail(email, fullname, verificationToken) {
    const recipient = [{email}];
    const firstName = getFirstName(fullname);
    try {
@@ -21,13 +21,12 @@ export async function sendVerificationEmail(email, fullname, verificationToken, 
       });
    }
    catch (err) {
-      messageHandler(response, 'Error sending verification email', 400);
-      next(err);
+      return messageHandler(response, 'Error sending verification email', 400);
 
    }
 }//end of sendVerificationEmail Function
 
-export async function sendWelcomeEmail(email, fullname, next) {
+export async function sendWelcomeEmail(email, fullname) {
    const recipient = [{email}];
    const firstName = getFirstName(fullname);
    try {
@@ -41,11 +40,11 @@ export async function sendWelcomeEmail(email, fullname, next) {
       });
    }
    catch (err) {
-      next(err);
+      return messageHandler(response, 'Error welcome email', 400);
    }
 }//end of sendWelcomeEmail Function
 
-export async function sendPasswordResetEmail(email, fullname, resetURL, next ) {
+export async function sendPasswordResetEmail(email, fullname, resetURL) {
    const recipient = [{ email }];
    const firstName = getFirstName(fullname);
    try {
@@ -58,11 +57,11 @@ export async function sendPasswordResetEmail(email, fullname, resetURL, next ) {
       });
    }
    catch (err) {
-      next(err);
+      return messageHandler(response, 'Error send password reset email', 400);
    }
 }//end of sendPasswordResetEmail Function
 
-export async function sendResetSuccessEmail(email, fullname, next) {
+export async function sendResetSuccessEmail(email, fullname) {
    const recipient = [{ email }];
    const firstName = getFirstName(fullname);
 
@@ -76,6 +75,6 @@ export async function sendResetSuccessEmail(email, fullname, next) {
       });
    }
    catch (err) {
-      next(err);
+      return messageHandler(response, err.message, 500)
    }
 }//end sendResetSuccessEmail Function
