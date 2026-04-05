@@ -380,3 +380,13 @@ export function getTimeDifferenceInMilliseconds(startDate, endDate) {
 export function convertMillisecondsToDate(milliseconds) {
    return new Date(milliseconds).toString();
 }
+
+export function generateVerificationData() {
+   const verificationData = [];
+   const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+   const verificationExpires = Date.now() + 60 * 60 * 1000 * 24 // 24 hours
+
+   verificationData.push(verificationCode);
+   verificationData.push(verificationExpires);
+   return verificationData;
+}

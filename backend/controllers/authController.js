@@ -10,10 +10,7 @@ import {
    validatePassword,
    validateFullname
 } from '../utils/functionsUtil.js';
-import {
-   sendVerificationEmail, sendWelcomeEmail, sendPasswordResetEmail,
-   sendResetSuccessEmail
-} from '../email/sendEmails.js';
+
 
 export const signUpUser = asyncHandler(async (req, res, next) => {
    const {fullname, email, password} = req.body;
@@ -49,24 +46,20 @@ export const signUpUser = asyncHandler(async (req, res, next) => {
       return next(messageHandler(res, false, 'User already exists!', 409));
    }
 
-   /************************* create and save a user *************************/
-   const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
+   /************************* create user and save user ************************/
 
    const newUser = await new User({
       fullname,
       email,
-      password,
-      verificationToken,
-      verificationTokenExpiresAt: Date.now() + 60 * 60 * 1000 * 24 // 24 hours
+      password
    });
 
    await newUser.save();
 
-   /*await sendVerificationEmail(email, fullname, verificationToken);*/
    const {password: pass, ...rest} = newUser._doc;
 
    res.status(201).json({
-      message: `${getFirstName(fullname)} signed up successfully!`,
+      message: `${getFirstName(fullname)} signed up successfully and email verification sent to ${email}!`,
       success: true,
       user: rest
    });
@@ -94,31 +87,4 @@ export const getSingleUserAdmin = asyncHandler(async (req, res, next) => {
 export const updateUserProfileAdmin = asyncHandler(async (req, res, next) => {
 });
 export const deleteUserAdmin = asyncHandler(async (req, res, next) => {
-});
-export const verifyUserEmail = asyncHandler(async (req, res, next) => {
-   const {code} = req.body;
-
-   const user = await User.findOne({
-      verificationToken: code,
-      verificationTokenExpiresAt: {$gt: Date.now()}
-   });
-   if (!user) {
-      next(messageHandler(res, false, 'Invalid or expired verification code', 400));
-   }
-
-   user.isVerified = true;
-   user.verificationToken = undefined;
-   user.verificationTokenExpiresAt = undefined;
-
-   await user.save();
-
-   await sendWelcomeEmail(user.email, user.fullname);
-
-   const {password: pass, ...rest} = user._doc;
-
-   res.status(200).json({
-      message: `${getFirstName(user.fullname)} has verified their email!`,
-      success: true,
-      user: rest
-   });
 });

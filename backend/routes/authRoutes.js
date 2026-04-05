@@ -8,8 +8,7 @@ import {
    signOutUser,
    signUpUser, updateCurrentUserPassword, updateCurrentUserProfile,
    updateUserProfileAdmin,
-   userForgotPassword, userResetPassword,
-   verifyUserEmail
+   userForgotPassword, userResetPassword
 } from '../controllers/authController.js';
 import {authenticateUser, authorizeRoles} from '../middlewares/authMiddleware.js';
 
@@ -18,7 +17,6 @@ const router = express.Router();
 
 /************************ auth routes ************************/
 router.post('/auth/sign-up', signUpUser);
-router.post('/auth/verify-email', verifyUserEmail);
 router.post('/auth/sign-in', signInUser);
 router.post('/auth/sign-out', signOutUser);
 router.get('/auth/users', getCurrentUserProfile);
