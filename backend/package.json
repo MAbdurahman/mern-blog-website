@@ -13,7 +13,7 @@
     "client": "npm start --prefix ../frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prod": "SET NODE_ENV=production& node server.js",
-    "seed:data": "node utils/seederUtil.js"
+    "seed:data": "node ./utils/seederUtil.js"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",

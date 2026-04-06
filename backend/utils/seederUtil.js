@@ -8,7 +8,7 @@ import posts from '../data/postsData.js';
 import users from '../data/usersData.js';
 
 /************************* configure setup *************************/
-dotenv.config({path: '../configs/config.env'});
+dotenv.config({path: './configs/config.env'});
 colors.enabled = true;
 
 /************************* connect MongoDB *************************/
