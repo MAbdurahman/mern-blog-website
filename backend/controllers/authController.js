@@ -133,6 +133,30 @@ export const getCurrentUserProfile = asyncHandler(async (req, res, next) => {
    });
 });
 export const updateCurrentUserPassword = asyncHandler(async (req, res, next) => {
+   const { oldPassword, newPassword } = req.body;
+   const user = await User.findById(req.user.id).select('+password');
+
+   if (!user) {
+      return next(messageHandler(res, false, 'User not found!', 404));
+   }
+
+   const isOldPasswordValid = await user.comparePassword(oldPassword);
+   if (!isOldPasswordValid) {
+      return next(messageHandler(res, false, 'Old password is incorrect!', 401));
+   }
+
+   if (!newPassword) {
+      return next(messageHandler(res, false, 'New password is required', 400));
+   }
+   if (validatePassword(newPassword).isValid === false) {
+      const { error } = validatePassword(newPassword);
+      return next(messageHandler(res, false, error, 406));
+   }
+
+   user.password = newPassword;
+   await user.save();
+
+   setCookieAndToken(user, res, 200);
 });
 export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
 });

@@ -20,8 +20,8 @@ router.post('/auth/sign-up', signUpUser);
 router.post('/auth/sign-in', signInUser);
 router.post('/auth/sign-out', authenticateUser, signOutUser);
 router.get('/auth/users', authenticateUser, getCurrentUserProfile);
-router.patch('/auth/users', updateCurrentUserPassword);
-router.put('/auth/users', updateCurrentUserProfile);
+router.patch('/auth/users',authenticateUser, updateCurrentUserPassword);
+router.put('/auth/users', authenticateUser, updateCurrentUserProfile);
 router.post('/auth/users/password/forgot', userForgotPassword);
 router.patch('/auth/users/password/:userToken', userResetPassword);
 
