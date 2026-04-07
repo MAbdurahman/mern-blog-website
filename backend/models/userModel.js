@@ -93,7 +93,7 @@ const userSchema = new Schema({
          default: 'user'
       },
       lastLoginTime: {
-         type: Date,
+         type: String,
          default: ''
       },
       isLoggedIn: {

@@ -59,13 +59,47 @@ export const signUpUser = asyncHandler(async (req, res, next) => {
    const {password: pass, ...rest} = newUser._doc;
 
    res.status(201).json({
-      message: `${getFirstName(fullname)} signed up successfully and email verification sent to ${email}!`,
+      message: `${getFirstName(fullname)} signed up successfully!`,
       success: true,
       user: rest
    });
 
 });
 export const signInUser = asyncHandler(async (req, res, next) => {
+   const { email, password } = req.body;
+
+   if (!email) {
+      return next(messageHandler(res, false, 'Email is required', 400));
+   }
+   if (validateEmail(email).isValid === false) {
+      const { error } = validateEmail(email);
+      return next(messageHandler(res, false, error, 406));
+   }
+
+   if (!password) {
+      return next(messageHandler(res, false, 'Password is required', 400));
+   }
+   if (validatePassword(password).isValid === false) {
+      const { error } = validatePassword(password);
+      return next(messageHandler(res, false, error, 406));
+   }
+
+   const isValidUser = await User?.findOne({ email }).select('+password');
+   if (!isValidUser) {
+      return next(messageHandler(res, false, 'User not found!', 404));
+   }
+
+   const hasValidPassword = await isValidUser.comparePassword(password);
+   if (!hasValidPassword) {
+      return next(messageHandler(res, false, 'Invalid credentials!', 401));
+   }
+
+   if (!isValidUser.isLoggedIn) {
+      await isValidUser.toggleIsLoggedIn();
+      await isValidUser.updateLastLoginTime();
+   }
+
+   setCookieAndToken(isValidUser, res, 200);
 
 });
 export const signOutUser = asyncHandler(async (req, res, next) => {
