@@ -103,8 +103,34 @@ export const signInUser = asyncHandler(async (req, res, next) => {
 
 });
 export const signOutUser = asyncHandler(async (req, res, next) => {
+   const user = req.user;
+
+   if (!user) {
+      return next(messageHandler(res, false, 'User not found!', 404));
+   }
+   if (user.isLoggedIn) {
+      await user.toggleIsLoggedIn();
+   }
+
+   res.cookie('blog_access', null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+   });
+
+   res.status(200).json({
+      message: `${getFirstName(user?.fullname)} signed out successfully!`,
+      success: true,
+      isLoggedIn: user.isLoggedIn,
+   });
 });
 export const getCurrentUserProfile = asyncHandler(async (req, res, next) => {
+   const user = await User.findById(req?.user?._id).select('-password');
+
+   res.status(200).json({
+      message: `${user?.fullname} retrieved profile successfully!`,
+      success: true,
+      user: user,
+   });
 });
 export const updateCurrentUserPassword = asyncHandler(async (req, res, next) => {
 });

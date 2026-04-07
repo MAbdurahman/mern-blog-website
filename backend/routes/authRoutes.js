@@ -18,8 +18,8 @@ const router = express.Router();
 /************************ auth routes ************************/
 router.post('/auth/sign-up', signUpUser);
 router.post('/auth/sign-in', signInUser);
-router.post('/auth/sign-out', signOutUser);
-router.get('/auth/users', getCurrentUserProfile);
+router.post('/auth/sign-out', authenticateUser, signOutUser);
+router.get('/auth/users', authenticateUser, getCurrentUserProfile);
 router.patch('/auth/users', updateCurrentUserPassword);
 router.put('/auth/users', updateCurrentUserProfile);
 router.post('/auth/users/password/forgot', userForgotPassword);
