@@ -26,7 +26,7 @@ router.post('/auth/users/password/forgot', userForgotPassword);
 router.patch('/auth/users/password/:userToken', userResetPassword);
 
 /************************* admin routes *************************/
-router.get('/admin/auth/users', getAllUsersAdmin);
+router.get('/admin/auth/users', authenticateUser, authorizeRoles('admin'), getAllUsersAdmin);
 router.get('/admin/auth/users/:userId', getSingleUserAdmin);
 router.put('/admin/auth/users/:userId', updateUserProfileAdmin);
 router.delete('/admin/auth/users/:userId',deleteUserAdmin);

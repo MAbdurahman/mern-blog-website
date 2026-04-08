@@ -204,6 +204,19 @@ export const userForgotPassword = asyncHandler(async (req, res, next) => {
 export const userResetPassword = asyncHandler(async (req, res, next) => {
 });
 export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {
+   const users = await User.find().sort({fullname: 1});
+
+   if (!users) {
+      return next(messageHandler(res, false,`This resource ${User} does not exist!`, 404));
+   }
+   const count = users.length;
+
+   res.status(200).json({
+      message: 'Admin - all users retrieved successfully!',
+      success: true,
+      count: count,
+      users: users,
+   });
 });
 export const getSingleUserAdmin = asyncHandler(async (req, res, next) => {
 });
