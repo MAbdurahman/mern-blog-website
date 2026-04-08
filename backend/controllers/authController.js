@@ -159,7 +159,46 @@ export const updateCurrentUserPassword = asyncHandler(async (req, res, next) => 
    setCookieAndToken(user, res, 200);
 });
 export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
+   const { fullname, email } = req.body;
+
+   if(!fullname) {
+      return next(messageHandler(res, false, 'Fullname is required', 400));
+   }
+   if (validateFullname(fullname).isValid === false) {
+      const { error } = validateFullname(fullname);
+      return next(messageHandler(res, false, error, 406));
+   }
+
+   if(!email) {
+      return next(messageHandler(res, false, 'Email is required', 400));
+   }
+   if (validateEmail(email).isValid === false) {
+      const { error } = validateEmail(email);
+      return next(messageHandler(res, false, error, 406));
+   }
+
+   const userNewData = {
+      fullname,
+      email,
+   };
+
+   const user = await User.findByIdAndUpdate(req.user.id, userNewData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+   }).select('-password');
+
+   if (!user) {
+      return next(messageHandler(res, false, 'User not found!', 404));
+   }
+
+   res.status(200).json({
+      message: `${user?.fullname} updated profile successfully!`,
+      success: true,
+      user: user,
+   });
 });
+
 export const userForgotPassword = asyncHandler(async (req, res, next) => {
 });
 export const userResetPassword = asyncHandler(async (req, res, next) => {
