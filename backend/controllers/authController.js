@@ -6,6 +6,7 @@ import messageHandler from '../utils/messageHandlerUtil.js';
 import setCookieAndToken from '../utils/setCookieAndTokenUtil.js';
 import {
    getFirstName,
+   getLastName,
    validateEmail,
    validatePassword,
    validateFullname
@@ -204,7 +205,7 @@ export const userForgotPassword = asyncHandler(async (req, res, next) => {
 export const userResetPassword = asyncHandler(async (req, res, next) => {
 });
 export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {
-   const users = await User.find().sort({fullname: 1});
+   const users = await User.find({}).sort({fullname: 1});
 
    if (!users) {
       return next(messageHandler(res, false,`This resource ${User} does not exist!`, 404));
@@ -219,6 +220,20 @@ export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {
    });
 });
 export const getSingleUserAdmin = asyncHandler(async (req, res, next) => {
+   const { userId } = req.params;
+   const user = await User.findById(userId).select('-password');
+
+   if (!user) {
+      return next(
+         messageHandler(res, false, `User not found with id: ${userId}`, 404)
+      );
+   }
+
+   res.status(200).json({
+      message: `Admin -  Retrieved ${user?.fullname}'s profile successfully! `,
+      success: true,
+      user: user,
+   });
 });
 export const updateUserProfileAdmin = asyncHandler(async (req, res, next) => {
 });
