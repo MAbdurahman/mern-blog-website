@@ -178,6 +178,13 @@ export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
       return next(messageHandler(res, false, error, 406));
    }
 
+   /******************** find out if an user already exists ********************/
+   const userAlreadyExists = await User?.findOne({email});
+
+   if (userAlreadyExists) {
+      return next(messageHandler(res, false, 'User already exists!', 409));
+   }
+
    const userNewData = {
       fullname,
       email,
@@ -200,9 +207,11 @@ export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
    });
 });
 
-export const userForgotPassword = asyncHandler(async (req, res, next) => {
+export const sendPasswordReset = asyncHandler(async (req, res, next) => {
+
 });
-export const userResetPassword = asyncHandler(async (req, res, next) => {
+export const verifyTokenAndUpdatePassword = asyncHandler(async (req, res, next) => {
+
 });
 export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {
    const users = await User.find({}).sort({fullname: 1});
@@ -210,7 +219,7 @@ export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {
    if (!users) {
       return next(messageHandler(res, false,`This resource ${User} does not exist!`, 404));
    }
-   const count = users.length;
+   const count = users?.length;
 
    res.status(200).json({
       message: 'Admin - all users retrieved successfully!',
