@@ -6,11 +6,11 @@ import messageHandler from '../utils/messageHandlerUtil.js';
 import setCookieAndToken from '../utils/setCookieAndTokenUtil.js';
 import {
    getFirstName,
-   getLastName,
    validateEmail,
    validatePassword,
    validateFullname
 } from '../utils/functionsUtil.js';
+import {sendPasswordResetRequestTemplate} from '../email/sendEmails.js';
 
 
 export const signUpUser = asyncHandler(async (req, res, next) => {
@@ -208,6 +208,25 @@ export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
 });
 
 export const sendPasswordReset = asyncHandler(async (req, res, next) => {
+   const {email} = req.body;
+   if (!email) {
+      return next(messageHandler(res, false, 'Email is required', 400));
+   }
+   if (validateEmail(email).isValid === false) {
+      const { error } = validateEmail(email);
+      return next(messageHandler(res, false, error, 406));
+   }
+
+   const isValidUser = await User?.findOne({ email });
+   if (!isValidUser) {
+      return next(messageHandler(res, false, 'User not found!', 404));
+   }
+
+   const resetPasswordToken = isValidUser.generateResetPasswordToken();
+   await isValidUser.save({ validateBeforeSave: false });
+
+   const resetPasswordURL = `${process.env.FRONTEND_URL}/api/v1.0/auth/users/password/${resetPasswordToken}`;
+   await sendPasswordResetRequestTemplate(isValidUser, resetPasswordURL, next);
 
 });
 export const verifyTokenAndUpdatePassword = asyncHandler(async (req, res, next) => {

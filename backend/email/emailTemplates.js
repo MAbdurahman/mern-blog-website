@@ -399,7 +399,7 @@ export const passwordResetRequestTemplate = `
         <div class='button_container'>
             <a href="{resetURL}">Reset Password</a>
         </div>
-        <p class='paragraph_two'>This link will expire in 1 hour for security considerations.</p>
+        <p class='paragraph_two'>This link will expire in 30 minutes for security considerations.</p>
         <p class='paragraph_two'>Best regards,<br>MERN Blog Team</p>
     </div>
     <div class='footer'>
