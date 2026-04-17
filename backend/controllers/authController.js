@@ -1,5 +1,5 @@
 /************************** imports **************************/
-import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import User from '../models/userModel.js';
 import asyncHandler from '../utils/asyncHandlerUtil.js';
 import messageHandler from '../utils/messageHandlerUtil.js';
@@ -230,7 +230,39 @@ export const sendPasswordReset = asyncHandler(async (req, res, next) => {
    await sendPasswordResetRequestTemplate(isValidUser, resetPasswordURL, res, next);
 
 });
-export const verifyTokenAndUpdatePassword = asyncHandler(async (req, res, next) => {
+export const verifyTokenAndResetPassword = asyncHandler(async (req, res, next) => {
+   const {userToken} = req.params;
+   const {password, confirmedPassword} = req.body;
+   const resetPasswordToken = crypto.createHash('sha256').update(userToken).digest('hex');
+
+   const isValidUser = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpiresAt: { $gt: Date.now() }
+   });
+   if (!isValidUser) {
+      return next(messageHandler(res, false, 'Token is invalid or has expired!', 400));
+   }
+
+   if (!password) {
+      return next(messageHandler(res, false, 'Password is required', 400));
+   }
+   if (validatePassword(password).isValid === false) {
+      const { error } = validatePassword(password);
+      return next(messageHandler(res, false, error, 406));
+   }
+   if (!confirmedPassword) {
+      return next(messageHandler(res, false, 'Confirmed password is required!', 400));
+   }
+   if (password !== confirmedPassword) {
+      return next (messageHandler(res, false, 'Confirmed password does not match password!', 400));
+   }
+
+   isValidUser.password = password;
+   isValidUser.resetPasswordToken = undefined;
+   isValidUser.resetPasswordExpiresAt = undefined;
+   isValidUser.save();
+
+   await sendPasswordResetSuccessTemplate(user, res, next);
 
 });
 export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {

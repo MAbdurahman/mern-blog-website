@@ -8,7 +8,7 @@ import {
    signOutUser,
    signUpUser, updateCurrentUserPassword, updateCurrentUserProfile,
    updateUserProfileAdmin,
-   sendPasswordReset, verifyTokenAndUpdatePassword
+   sendPasswordReset, verifyTokenAndResetPassword
 } from '../controllers/authController.js';
 import {authenticateUser, authorizeRoles} from '../middlewares/authMiddleware.js';
 
@@ -23,7 +23,7 @@ router.get('/auth/users', authenticateUser, getCurrentUserProfile);
 router.patch('/auth/users', authenticateUser, updateCurrentUserPassword);
 router.put('/auth/users', authenticateUser, updateCurrentUserProfile);
 router.post('/auth/users/password/forgot', sendPasswordReset);
-router.patch('/auth/users/password/:userToken', verifyTokenAndUpdatePassword);
+router.patch('/auth/users/password/:userToken', verifyTokenAndResetPassword);
 
 /************************* admin routes *************************/
 router.get('/admin/auth/users', authenticateUser, authorizeRoles('admin'), getAllUsersAdmin);
