@@ -11,6 +11,7 @@ import {
    validateFullname
 } from '../utils/functionsUtil.js';
 import {sendPasswordResetRequestTemplate} from '../email/sendEmails.js';
+import {sendPasswordResetSuccessTemplate} from '../email/sendEmails.js';
 
 
 export const signUpUser = asyncHandler(async (req, res, next) => {
@@ -217,7 +218,7 @@ export const sendPasswordReset = asyncHandler(async (req, res, next) => {
       return next(messageHandler(res, false, error, 406));
    }
 
-   const isValidUser = await User?.findOne({ email });
+   const isValidUser = await User?.findOne({email});
    if (!isValidUser) {
       return next(messageHandler(res, false, 'User not found!', 404));
    }
@@ -226,7 +227,7 @@ export const sendPasswordReset = asyncHandler(async (req, res, next) => {
    await isValidUser.save({ validateBeforeSave: false });
 
    const resetPasswordURL = `${process.env.FRONTEND_URL}/api/v1.0/auth/users/password/${resetPasswordToken}`;
-   await sendPasswordResetRequestTemplate(isValidUser, resetPasswordURL, next);
+   await sendPasswordResetRequestTemplate(isValidUser, resetPasswordURL, res, next);
 
 });
 export const verifyTokenAndUpdatePassword = asyncHandler(async (req, res, next) => {
