@@ -48,12 +48,16 @@ export async function sendPasswordResetSuccessTemplate(user, res, next) {
       })
 
    } catch (err) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpiresAt = undefined;
+      await user.save({validateBeforeSave: false});
+
       return next(new ErrorHandler(err?.message, 500));
    }
 }
 
 export async function sendVerificationEmailTemplate(user, verificationToken, res, next) {
-   const firstName = getFirstName(user.fullname);
+   const firstName = getFirstName(user?.fullname);
    const message = verificationEmailTemplate.replace('{name}', firstName).replace('{verificationCode}', verificationToken);
 
    try {
@@ -80,7 +84,7 @@ export async function sendVerificationEmailTemplate(user, verificationToken, res
 }
 
 export async function sendWelcomeEmailTemplate(user, res, next) {
-   const firstName = getFirstName(name);
+   const firstName = getFirstName(user?.fullname);
    const message = welcomeEmailTemplate.replace('{name}', firstName);
 
    try {
@@ -89,12 +93,15 @@ export async function sendWelcomeEmailTemplate(user, res, next) {
          subject: 'Welcome Email',
          message: message
 
-      })
+      });
+
+      const { password: pass, ...rest } = user._doc;
 
       res.status(200).json({
-         message: `Email sent to ${user?.email}`,
-         success: true
-      })
+         message: `Email verified and welcome email sent to ${user?.email}`,
+         success: true,
+         user: rest
+      });
 
    } catch (err) {
       return next(new ErrorHandler(err?.message, 500));

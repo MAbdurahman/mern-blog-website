@@ -12,6 +12,8 @@ import {
 } from '../utils/functionsUtil.js';
 import {sendPasswordResetRequestTemplate} from '../email/sendEmails.js';
 import {sendPasswordResetSuccessTemplate} from '../email/sendEmails.js';
+import {sendVerificationEmailTemplate} from '../email/sendEmails.js';
+import {sendWelcomeEmailTemplate} from '../email/sendEmails.js';
 
 
 export const signUpUser = asyncHandler(async (req, res, next) => {
@@ -67,6 +69,32 @@ export const signUpUser = asyncHandler(async (req, res, next) => {
    });
 
 });
+
+export const verifyEmail = asyncHandler(async (req, res, next) => {
+   const { code } = req.body;
+   if (!code) {
+      return next(messageHandler(res, false, 'Code is required!', 401));
+   }
+
+   const user = await User.findOne({
+      verificationToken: code,
+      verificationTokenExpiresAt: { $gt: Date.now() },
+   });
+
+   if (!user) {
+      return res.status(400).json({ success: false, message: "Invalid or expired verification code" });
+   }
+
+   user.isVerified = true;
+   user.verificationToken = undefined;
+   user.verificationTokenExpiresAt = undefined;
+   await user.save();
+
+   await sendWelcomeEmailTemplate(user, res, next);
+
+});
+
+
 export const signInUser = asyncHandler(async (req, res, next) => {
    const { email, password } = req.body;
 
@@ -127,6 +155,10 @@ export const signOutUser = asyncHandler(async (req, res, next) => {
 });
 export const getCurrentUserProfile = asyncHandler(async (req, res, next) => {
    const user = await User.findById(req?.user?._id).select('-password');
+
+   if (!user) {
+      return next(messageHandler(res, false, 'User not found!', 404));
+   }
 
    res.status(200).json({
       message: `${user?.fullname} retrieved profile successfully!`,
@@ -230,6 +262,7 @@ export const sendPasswordReset = asyncHandler(async (req, res, next) => {
    await sendPasswordResetRequestTemplate(isValidUser, resetPasswordURL, res, next);
 
 });
+
 export const verifyTokenAndResetPassword = asyncHandler(async (req, res, next) => {
    const {userToken} = req.params;
    const {password, confirmedPassword} = req.body;
@@ -262,7 +295,7 @@ export const verifyTokenAndResetPassword = asyncHandler(async (req, res, next) =
    isValidUser.resetPasswordExpiresAt = undefined;
    isValidUser.save();
 
-   await sendPasswordResetSuccessTemplate(user, res, next);
+   await sendPasswordResetSuccessTemplate(isValidUser, res, next);
 
 });
 export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {

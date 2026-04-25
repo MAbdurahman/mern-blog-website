@@ -41,6 +41,7 @@ export const verificationEmailTemplate = `
     body {
         height: 100vh;
         width: 100vw;
+        overflow-x: hidden;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -178,6 +179,7 @@ export const welcomeEmailTemplate = `
     body {
         height: 100vh;
         width: 100vw;
+        overflow-x: hidden;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -311,6 +313,7 @@ export const passwordResetRequestTemplate = `
     body {
         height: 100vh;
         width: 100vw;
+        overflow-x: hidden;
         display: flex;
         flex-direction: column;
         justify-content: center;
