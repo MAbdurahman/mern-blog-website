@@ -82,7 +82,7 @@ export const verifyEmail = asyncHandler(async (req, res, next) => {
    });
 
    if (!user) {
-      return res.status(400).json({ success: false, message: "Invalid or expired verification code" });
+      return next(messageHandler(res, false, 'Invalid or expired verification token!', 401));
    }
 
    user.isVerified = true;
