@@ -128,7 +128,7 @@ userSchema.pre('save', async function () {
 
 /******************** format lastLoginTime **********************/
 userSchema.methods.updateLastLoginTime = async function () {
-   this.lastLoginTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
+   this.lastLoginTime = moment(Date.now()).format('MMMM DD YYYY, h:mm:ss a');
    return this.save();
 };
 
