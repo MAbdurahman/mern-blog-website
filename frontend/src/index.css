@@ -140,6 +140,7 @@ body {
    position: relative;
    z-index: 1;
    overflow-x: hidden;
+   width: 100%;
    font-family: var(--font-body);
    font-weight: var(--font-weight-normal);
    font-style: normal;

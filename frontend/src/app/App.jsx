@@ -1,9 +1,15 @@
+import React, {Fragment} from 'react';
+import {StyledHeader} from '../styles/Navbar.styled.jsx';
+import Navbar from '../components/Navbar/index.jsx';
+
 export default function App() {
 
    return (
-      <div>
-         <h2>App</h2>
-      </div>
+      <Fragment>
+         <Navbar>
+
+         </Navbar>
+      </Fragment>
 
    );
 }

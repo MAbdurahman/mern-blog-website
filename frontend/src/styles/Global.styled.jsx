@@ -26,7 +26,8 @@ export const GlobalStyles = createGlobalStyle`
       outline: none;
    }
    :root {
-      --font-body: 'Mulish', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --font-heading: 'Lora', serif;
 
       /************************* fluid body text *************************/
       --fluid-body-text-p000: clamp(0.51rem, 0.13vi + 0.49rem, 0.64rem);
@@ -196,7 +197,7 @@ export const GlobalStyles = createGlobalStyle`
       width: 100%;
       z-index: 1;
       overflow-x: hidden;
-      font-family: 'Mulish', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 400;
       font-style: normal;
       font-optical-sizing: auto;
