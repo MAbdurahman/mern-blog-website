@@ -11,9 +11,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-helmet": "^6.1.0",
+    "@ant-design/icons": "^6.1.0",
+    "bootstrap": "^5.3.8",
+    "hamburger-react": "^2.5.2",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.4",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^7.15.1",
+    "styled-components": "^6.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",

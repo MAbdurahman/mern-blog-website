@@ -1,0 +1,530 @@
+
+import {createGlobalStyle} from 'styled-components';
+
+export const GlobalStyles = createGlobalStyle`
+   @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+   *,
+   *::after,
+   *::before {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      outline: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+   }
+
+   *::-moz-focus-inner {
+      border: 0;
+   }
+
+   *:focus {
+      outline: none;
+   }
+   :root {
+      --font-body: 'Mulish', sans-serif;
+
+      /************************* fluid body text *************************/
+      --fluid-body-text-p000: clamp(0.51rem, 0.13vi + 0.49rem, 0.64rem);
+      --fluid-body-text-p100: clamp(0.64rem, 0.16vi + 0.61rem, 0.8rem);
+      --fluid-body-text-p200: clamp(0.8rem, 0.2vi + 0.76rem, 1rem);
+      --fluid-body-text-p300: clamp(1rem, 0.25vi + 0.95rem, 1.25rem);
+      --fluid-body-text-p400: clamp(1.25rem, 0.31vi + 1.19rem, 1.56rem);
+      --fluid-body-text-p500: clamp(1.56rem, 0.39vi + 1.48rem, 1.95rem);
+      --fluid-body-text-p600: clamp(1.95rem, 0.49vi + 1.86rem, 2.44rem);
+      --fluid-body-text-p700: clamp(2.44rem, 0.61vi + 2.32rem, 3.05rem);
+      --fluid-body-text-p800: clamp(3.05rem, 0.76vi + 2.9rem, 3.81rem);
+      --fluid-body-text-p900: clamp(3.81rem, 0.95vi + 3.62rem, 4.77rem);
+
+      /************************* typography scale *************************/
+      --font-size-heading-01: 3.815rem;
+      --font-size-heading-02: 3.052rem;
+      --font-size-heading-03: 2.441rem;
+      --font-size-heading-04: 1.953rem;
+      --font-size-heading-05: 1.563rem;
+      --font-size-heading-06: 1.25rem;
+      --font-size-paragraph: 1rem;
+      --font-size-small: 0.8rem;
+      /************************* font weight *************************/
+      --font-weight-light: 300;
+      --font-weight-normal: 400;
+      --font-weight-medium: 600;
+      --font-weight-semibold: 700;
+      --font-weight-bold: 800;
+      --font-weight-black: 900;
+      /************************* colors *************************/
+      --color-bright-blue-01-000: hsl(196, 77%, 95%);
+      --color-bright-blue-01-100: hsl(196, 77%, 90%);
+      --color-bright-blue-01-200: hsl(196, 77%, 80%);
+      --color-bright-blue-01-300: hsl(196, 77%, 75%);
+      --color-bright-blue-01-400: hsl(196, 77%, 70%);
+      --color-bright-blue-01-500: hsl(196, 77%, 65%);
+      --color-bright-blue-01-600: hsl(196, 77%, 55%);
+      --color-bright-blue-01-700: hsl(196, 77%, 50%);
+      --color-bright-blue-01-800: hsl(196, 77%, 45%);
+      --color-bright-blue-01-900: hsl(196, 77%, 35%);
+      /* neutral colors */
+      --color-neutral-000: hsl(196, 0%, 98%);
+      --color-neutral-100: hsl(196, 0%, 88%);
+      --color-neutral-200: hsl(196, 0%, 78%);
+      --color-neutral-300: hsl(196, 0%, 68%);
+      --color-neutral-400: hsl(196, 0%, 58%);
+      --color-neutral-500: hsl(196, 0%, 48%);
+      --color-neutral-600: hsl(196, 0%, 38%);
+      --color-neutral-700: hs1(196, 0%, 28%);
+      --color-neutral-800: hsl(196, 0%, 18%);
+      --color-neutral-900: hsl(196, 0%, 10%);
+      /* augmented colors */
+      --color-augmented-000: hsl(196, 12%, 95%);
+      --color-augmented-100: hsl(196, 12%, 85%);
+      --color-augmented-200: hsl(196, 12%, 75%);
+      --color-augmented-300: hsl(196, 15%, 65%);
+      --color-augmented-400: hsl(196, 15%, 55%);
+      --color-augmented-500: hsl(196, 15%, 45%);
+      --color-augmented-600: hsl(196, 15%, 35%);
+      --color-augmented-700: hsl(196, 20%, 25%);
+      --color-augmented-800: hsl(196, 25%, 15%);
+      --color-augmented-900: hsl(196, 30%, 15%);
+      /************************* semantic colors *************************/
+      /* semantic inform colors */
+      --color-semantic-inform-400: hsl(215, 96%, 33%);
+      --color-semantic-inform-300: hsl(215, 96%, 38%);
+      --color-semantic-inform-200: hsl(215, 96%, 43%);
+      --color-semantic-inform-100: hsl(215, 96%, 48%);
+      /* semantic success colors */
+      --color-semantic-success-400: hsl(100, 96%, 33%);
+      --color-semantic-success-300: hsl(100, 96%, 38%);
+      --color-semantic-success-200: hsl(100, 96%, 43%);
+      --color-semantic-success-100: hsl(100, 96%, 48%);
+      /* semantic warn colors */
+      --color-semantic-warn-400: hsl(44.94, 96%, 50%);
+      --color-semantic-warn-300: hsl(44.94, 96%, 55%);
+      --color-semantic-warn-200: hsl(44.94, 96%, 60%);
+      --color-semantic-warn-100: hsl(44.94, 96%, 65%);
+      --color-semantic-warn-000: hsl(42.9, 74.4%, 49.02%);
+      /* semantic extreme warn colors */
+      --color-semantic-extreme-warn-400: hsl(28.47, 96%, 50%);
+      --color-semantic-extreme-warn-300: hsl(28.47, 96%, 55%);
+      --color-semantic-extreme-warn-200: hsl(28.47, 96%, 60%);
+      --color-semantic-extreme-warn-100: hsl(28.47, 96%, 65%);
+      /* semantic alert colors */
+      --color-semantic-alert-400: hsl(0, 96%, 33%);
+      --color-semantic-alert-300: hsl(0, 96%, 38%);
+      --color-semantic-alert-200: hsl(0, 96%, 43%);
+      --color-semantic-alert-100: hsl(0, 96%, 48%);
+
+      --toastify-color-error: hsl(0, 96%, 33%);
+      --toastify-font-family: 'Mulish', sans-serif;
+      --toastify-z-index: 10000;
+      
+      --ease-basic-01: cubic-bezier(0.26, 0.1, 0.27, 1.55);
+      --ease-basic-02: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      --ease: cubic-bezier(0.19, 0.08, 0.46, 0.99);
+      --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+      --ease-in: cubic-bezier(0.33, 0.02, 0.84, 0.75);
+      --ease-out: cubic-bezier(0.05, 0.21, 0.66, 0.98);
+      --ease-in-out: cubic-bezier(0.38, 0, 0.57, 0.99);
+      --ease-linear: cubic-bezier(0.19, 0.08, 0.84, 0.75);
+      --ease-smooth: cubic-bezier(0.1, 0.7, 0.6, 0.9);
+      --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+      --ease-snappy-01: cubic-bezier(0.5, 0, 0.4, 0.98);
+      --ease-snappy-02: cubic-bezier(.17, .67, .83, .67);
+
+      --radius-000: 1px;
+      --radius-100: 2px;
+      --radius-200: 3px;
+      --radius-300: 5px;
+      --radius-400: 8px;
+      --radius-500: 13px;
+      --radius-600: 21px;
+      --radius-700: 34px;
+      --radius-800: 55px;
+      --radius-900: 50%;
+
+      --breakpoint-xxs: 20rem; /*320px */
+      --breakpoint-xs: 30rem; /*480px */
+      --breakpoint-sm: 40rem; /*640px */
+      --breakpoint-md: 48rem; /*768px */
+      --breakpoint-lg: 64rem; /*1024px;*/
+      --breakpoint-xl: 80rem; /*1280px;*/
+      --breakpoint-2xl: 96rem; /*1536px;*/
+      --breakpoint-3xl: 120rem; /*1920px;*/
+
+
+      /**************** letter spacing ****************/
+      --letter-spacing-100: 1px;
+      --letter-spacing-200: 2px;
+      --letter-spacing-300: 3px;
+      --letter-spacing-400: 5px;
+      --letter-spacing-minus-100: -1px;
+      --letter-spacing-minus-200: -2px;
+      --letter-spacing-minus-300: -3px;
+      --letter-spacing-minus-400: -5px;
+   }
+
+
+   html {
+      height: 100dvh;
+      width: 100dvw;
+      font-size: 100%;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      overflow-x: hidden;
+      -ms-overflow-style: none;
+   }
+
+   @media screen and (max-width: 540px) {
+      html {
+         font-size: 62.5%;
+      }
+
+   }
+   @media screen and (max-width: 390px) {
+      html {
+         font-size: 62.5%;
+      }
+
+   }
+
+   body {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      z-index: 1;
+      overflow-x: hidden;
+      font-family: 'Mulish', sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-optical-sizing: auto;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+      color: #333;
+      background-color: #ddd;
+   }
+   
+   /*===============================================================
+          Typography Scale - 1.250 - Major Third
+   ==================================================================*/
+   h1, h2, h3, h4, h5, h6 {
+      font-family: 'Mulish', sans-serif;
+      font-weight: 700;
+      font-style: normal;
+      font-optical-sizing: auto;
+      text-rendering: optimizeLegibility;
+      line-height: 1.3;
+   }
+
+   h1 {
+      font-size: 3.815rem;
+   }
+
+   h2 {
+      font-size: 3.052rem;
+   }
+
+   h3 {
+      font-size: 2.441rem;
+   }
+
+   h4 {
+      font-size: 1.953rem;
+   }
+
+   h5 {
+      font-size: 1.563rem;
+   }
+
+   h6 {
+      font-size: 1.25rem;
+   }
+
+   p, small {
+      font-family: 'Mulish', sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-optical-sizing: auto;
+      text-rendering: optimizeLegibility;
+   }
+
+   p {
+      font-size: 1rem;
+      margin-bottom: 1em;
+   }
+
+   small {
+      font-size: 0.8rem;
+   }
+
+   img {
+      width: 100%;
+      height: auto;
+   }
+   ul {
+      list-style: none;
+   }
+
+   a {
+      text-decoration: none;
+      cursor: pointer;
+      opacity: 0.75;
+   }
+
+   a:hover {
+      cursor: pointer;
+      opacity: 1;
+   }
+   .app.fade-in {
+      z-index: 1;
+   }
+
+   .fade-in {
+      animation-name: fadeIn;
+      animation-duration: 3500ms;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+   }
+   /*===============================================================
+             utility classes
+   ==================================================================*/
+   .bg-semantic-a-200 {
+      background-color: hsl(0, 96%, 48%);
+   }
+
+   .bg-semantic-a-400 {
+      background-color: hsl(0, 96%, 33%);
+   }
+
+   .bg-semantic-i-400 {
+      background-color: hsl(215, 96%, 33%);
+   }
+
+   .bg-semantic-s-400 {
+      background-color: hsl(100, 96%, 33%);
+   }
+
+   .bg-semantic-w-400 {
+      background-color: hsl(48, 96%, 50%);
+   }
+
+
+
+   .utils-container-fluid {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 16px;
+      padding-right: 16px;
+   }
+
+   .utils-container {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 16px;
+      padding-right: 16px;
+   }
+
+   @media (min-width: 576px) {
+      .utils-container {
+         max-width: 544px;
+      }
+   }
+   @media (min-width: 768px) {
+      .utils-container {
+         max-width: 720px;
+      }
+   }
+   @media (min-width: 992px) {
+      .utils-container {
+         max-width: 960px;
+      }
+   }
+   /*@media (min-width: 1200px) {
+      .utils-container {
+         max-width: 1144px;
+      }
+   }*/
+   @media (min-width: 1360px) {
+      .utils-container {
+         max-width: 1320px;
+      }
+   }
+
+   .side__panel--open {
+      transform: translateX(0);
+   }
+   .side__panel--close {
+      transform: translateX(100%);
+   }
+
+   .hamburger--open:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+   }
+
+   .hamburger--open:nth-child(2) {
+      transform: translateX(100%);
+      opacity: 0;
+   }
+
+   .hamburger--open:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+   }
+
+   .menu--open {
+      transform: translateX(0);
+   }
+   .menu--close {
+      transform: translateX(100%);
+   }
+
+   .navbar-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+       background-color: hsl(210, 0%, 18%);
+      border-bottom: 3px solid hsl(196, 77%, 55%);
+   }
+   
+   .side__panel--open {
+      transform: translateX(0);
+   }
+   .side__panel--close {
+      transform: translateX(100%);
+   }
+
+
+
+
+
+
+
+   /*===============================================================
+           Utility Classes
+==================================================================*/
+   .utils-fixed {
+      position: fixed;
+      left: 50%;
+      top: 6rem;
+      transform: translate(-50%, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+   }
+
+   .utils-radius-shadow {
+      border-radius: var(--radius-200);
+      box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0,0,0,0.1), 0 2px 4px -2px rgb(0,0,0,0.1);
+   }
+
+   .utils-notification-paragraph {
+      padding: 1rem;
+      font-weight: 600;
+      color: rgb(249,250,251);
+   }
+
+   .utils-notify {
+      min-width: 320px;
+      max-width: 320px;
+   }
+
+   .utils-center-text {
+      text-align: center;
+   }
+
+   .bg-semantic-a-200 {
+      background-color: hsl(0, 96%, 48%);
+   }
+
+   .bg-semantic-a-400 {
+      background-color: hsl(0, 96%, 33%);
+   }
+
+   .bg-semantic-i-400 {
+      background-color: hsl(215, 96%, 33%);
+   }
+
+   .bg-semantic-s-400 {
+      background-color: hsl(100, 96%, 33%);
+   }
+
+   .bg-semantic-w-400 {
+      background-color: hsl(48, 96%, 50%);
+   }
+
+   
+   .move-in-from-right {
+      animation-name: move-in-from-right;
+      animation-duration: 1s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+   }
+
+   .exit-to-left {
+      animation-name: exit-to-left;
+      animation-duration: 1s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+   }
+
+   .move-back-to-right {
+      animation-name: move-back-to-right;
+      animation-duration: 1s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+   }
+
+   @keyframes move-in-from-right {
+      0% {
+         opacity: 0;
+         transform: translateX(2000px);
+      }
+      60% {
+         opacity: 1;
+         transform: translateX(-50px);
+      }
+      80% {
+         transform: translateX(10px);
+      }
+      100% {
+         transform: translateX(0);
+      }
+   }
+
+   @keyframes exit-to-left {
+      0% {
+         opacity: 1;
+         transform: translateX(0);
+      }
+      50% {
+         transform: translateX(50px);
+      }
+      100% {
+         transform: translateX(-2000px);
+      }
+   }
+
+   @keyframes move-back-to-right {
+      0% {
+         opacity: 1;
+         transform: translateX(0);
+      }
+      50% {
+         transform: translateX(-50px);
+      }
+      100% {
+         transform: translateX(2000px);
+      }
+   }
+
+   @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+   }
+   
+`;
+export default GlobalStyles;
