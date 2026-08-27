@@ -6,10 +6,7 @@ export default function Navbar() {
       <StyledHeader>
          <StyledHeaderNavbarContainer>
             <StyledTopNavigation>
-               <h3 style={{ color: 'white' }}>Logo</h3>
-            </StyledTopNavigation>
-            <StyledTopNavigation>
-               <h3 style={{ textAlign: '-webkit-center', color: 'white'}}>Search</h3>
+               <h4 style={{ color: 'white' }}>Blog</h4>
             </StyledTopNavigation>
          </StyledHeaderNavbarContainer>
       </StyledHeader>

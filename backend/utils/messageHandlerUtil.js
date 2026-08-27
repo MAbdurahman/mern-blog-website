@@ -1,8 +1,8 @@
-const messageHandler = (res, success, error, statusCode = 400) =>
-   res.status(statusCode).json({
-      success: false,
-      message: error,
-      statusCode: statusCode
-   });
+import ErrorHandler from './errorHandlerUtil.js';
+
+const messageHandler = (message, statusCode = 400) => {
+   return new ErrorHandler(message, statusCode);
+
+}
 
 export default messageHandler;

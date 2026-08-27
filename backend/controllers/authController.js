@@ -20,34 +20,34 @@ export const signUpUser = asyncHandler(async (req, res, next) => {
    const {fullname, email, password} = req.body;
 
    if (!fullname) {
-      return next(messageHandler(res, false, 'Fullname is required', 400));
+      return next(messageHandler('Fullname is required', 400));
    }
    if (validateFullname(fullname).isValid === false) {
       const {error} = validateFullname(fullname);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    if (!email) {
-      return next(messageHandler(res, false, 'Email is required', 400));
+      return next(messageHandler('Email is required', 400));
    }
    if (validateEmail(email).isValid === false) {
       const {error} = validateEmail(email);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    if (!password) {
-      return next(messageHandler(res, false, 'Password is required', 400));
+      return next(messageHandler('Password is required', 400));
    }
    if (validatePassword(password).isValid === false) {
       const {error} = validatePassword(password);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    /******************** find out if an user already exists ********************/
    const userAlreadyExists = await User?.findOne({email});
 
    if (userAlreadyExists) {
-      return next(messageHandler(res, false, 'User already exists!', 409));
+      return next(messageHandler('User already exists!', 409));
    }
 
    /************************* create user and save user ************************/
@@ -73,7 +73,7 @@ export const signUpUser = asyncHandler(async (req, res, next) => {
 export const verifyEmail = asyncHandler(async (req, res, next) => {
    const { code } = req.body;
    if (!code) {
-      return next(messageHandler(res, false, 'Code is required!', 401));
+      return next(messageHandler('Code is required!', 401));
    }
 
    const user = await User.findOne({
@@ -82,7 +82,7 @@ export const verifyEmail = asyncHandler(async (req, res, next) => {
    });
 
    if (!user) {
-      return next(messageHandler(res, false, 'Invalid or expired verification token!', 401));
+      return next(messageHandler('Invalid or expired verification token!', 401));
    }
 
    user.isVerified = true;
@@ -99,29 +99,29 @@ export const signInUser = asyncHandler(async (req, res, next) => {
    const { email, password } = req.body;
 
    if (!email) {
-      return next(messageHandler(res, false, 'Email is required', 400));
+      return next(messageHandler('Email is required', 400));
    }
    if (validateEmail(email).isValid === false) {
       const { error } = validateEmail(email);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    if (!password) {
-      return next(messageHandler(res, false, 'Password is required', 400));
+      return next(messageHandler('Password is required', 400));
    }
    if (validatePassword(password).isValid === false) {
       const { error } = validatePassword(password);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    const isValidUser = await User?.findOne({ email }).select('+password');
    if (!isValidUser) {
-      return next(messageHandler(res, false, 'User not found!', 404));
+      return next(messageHandler('User not found!', 404));
    }
 
    const hasValidPassword = await isValidUser.comparePassword(password);
    if (!hasValidPassword) {
-      return next(messageHandler(res, false, 'Invalid credentials!', 401));
+      return next(messageHandler('Invalid credentials!', 401));
    }
 
    if (!isValidUser.isLoggedIn) {
@@ -136,7 +136,7 @@ export const signOutUser = asyncHandler(async (req, res, next) => {
    const user = req.user;
 
    if (!user) {
-      return next(messageHandler(res, false, 'User not found!', 404));
+      return next(messageHandler('User not found!', 404));
    }
    if (user.isLoggedIn) {
       await user.toggleIsLoggedIn();
@@ -157,7 +157,7 @@ export const getCurrentUserProfile = asyncHandler(async (req, res, next) => {
    const user = await User.findById(req?.user?._id).select('-password');
 
    if (!user) {
-      return next(messageHandler(res, false, 'User not found!', 404));
+      return next(messageHandler('User not found!', 404));
    }
 
    res.status(200).json({
@@ -171,20 +171,20 @@ export const updateCurrentUserPassword = asyncHandler(async (req, res, next) => 
    const user = await User.findById(req.user.id).select('+password');
 
    if (!user) {
-      return next(messageHandler(res, false, 'User not found!', 404));
+      return next(messageHandler('User not found!', 404));
    }
 
    const isOldPasswordValid = await user.comparePassword(oldPassword);
    if (!isOldPasswordValid) {
-      return next(messageHandler(res, false, 'Old password is incorrect!', 401));
+      return next(messageHandler('Old password is incorrect!', 401));
    }
 
    if (!newPassword) {
-      return next(messageHandler(res, false, 'New password is required', 400));
+      return next(messageHandler('New password is required', 400));
    }
    if (validatePassword(newPassword).isValid === false) {
       const { error } = validatePassword(newPassword);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    user.password = newPassword;
@@ -196,26 +196,26 @@ export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
    const { fullname, email } = req.body;
 
    if(!fullname) {
-      return next(messageHandler(res, false, 'Fullname is required', 400));
+      return next(messageHandler('Fullname is required', 400));
    }
    if (validateFullname(fullname).isValid === false) {
       const { error } = validateFullname(fullname);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    if(!email) {
-      return next(messageHandler(res, false, 'Email is required', 400));
+      return next(messageHandler('Email is required', 400));
    }
    if (validateEmail(email).isValid === false) {
       const { error } = validateEmail(email);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    /******************** find out if an user already exists ********************/
    const userAlreadyExists = await User?.findOne({email});
 
    if (userAlreadyExists) {
-      return next(messageHandler(res, false, 'User already exists!', 409));
+      return next(messageHandler('User already exists!', 409));
    }
 
    const userNewData = {
@@ -230,7 +230,7 @@ export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
    }).select('-password');
 
    if (!user) {
-      return next(messageHandler(res, false, 'User not found!', 404));
+      return next(messageHandler('User not found!', 404));
    }
 
    res.status(200).json({
@@ -243,16 +243,16 @@ export const updateCurrentUserProfile = asyncHandler(async (req, res, next) => {
 export const sendPasswordReset = asyncHandler(async (req, res, next) => {
    const {email} = req.body;
    if (!email) {
-      return next(messageHandler(res, false, 'Email is required', 400));
+      return next(messageHandler('Email is required', 400));
    }
    if (validateEmail(email).isValid === false) {
       const { error } = validateEmail(email);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
 
    const isValidUser = await User?.findOne({email});
    if (!isValidUser) {
-      return next(messageHandler(res, false, 'User not found!', 404));
+      return next(messageHandler('User not found!', 404));
    }
 
    const resetPasswordToken = isValidUser.generateResetPasswordToken();
@@ -273,27 +273,27 @@ export const verifyTokenAndResetPassword = asyncHandler(async (req, res, next) =
       resetPasswordExpiresAt: { $gt: Date.now() }
    });
    if (!isValidUser) {
-      return next(messageHandler(res, false, 'Token is invalid or has expired!', 400));
+      return next(messageHandler('Token is invalid or has expired!', 400));
    }
 
    if (!password) {
-      return next(messageHandler(res, false, 'Password is required', 400));
+      return next(messageHandler('Password is required', 400));
    }
    if (validatePassword(password).isValid === false) {
       const { error } = validatePassword(password);
-      return next(messageHandler(res, false, error, 406));
+      return next(messageHandler(error, 406));
    }
    if (!confirmedPassword) {
-      return next(messageHandler(res, false, 'Confirmed password is required!', 400));
+      return next(messageHandler('Confirmed password is required!', 400));
    }
    if (password !== confirmedPassword) {
-      return next (messageHandler(res, false, 'Confirmed password does not match password!', 400));
+      return next (messageHandler('Confirmed password does not match password!', 400));
    }
 
    isValidUser.password = password;
    isValidUser.resetPasswordToken = undefined;
    isValidUser.resetPasswordExpiresAt = undefined;
-   isValidUser.save();
+   await isValidUser.save();
 
    await sendPasswordResetSuccessTemplate(isValidUser, res, next);
 
@@ -302,7 +302,7 @@ export const getAllUsersAdmin = asyncHandler(async (req, res, next) => {
    const users = await User.find({}).sort({fullname: 1});
 
    if (!users) {
-      return next(messageHandler(res, false,`This resource ${User} does not exist!`, 404));
+      return next(messageHandler(`This resource ${User} does not exist!`, 404));
    }
    const count = users?.length;
 
@@ -319,7 +319,7 @@ export const getSingleUserAdmin = asyncHandler(async (req, res, next) => {
 
    if (!user) {
       return next(
-         messageHandler(res, false, `User not found with id: ${userId}`, 404)
+         messageHandler(`User not found with id: ${userId}`, 404)
       );
    }
 
@@ -335,7 +335,7 @@ export const updateUserProfileAdmin = asyncHandler(async (req, res, next) => {
 
    const user = await User.findById(userId);
    if (!user) {
-      return next(messageHandler(res, false, 'User not found!', 404));
+      return next(messageHandler('User not found!', 404));
    }
 
    if (fullname) {
@@ -348,13 +348,13 @@ export const updateUserProfileAdmin = asyncHandler(async (req, res, next) => {
    if (email) {
       if (validateEmail(email).isValid === false) {
          const { error } = validateEmail(email);
-         return next(messageHandler(res, false, error, 406));
+         return next(messageHandler(error, 406));
       }
    }
 
    if (role) {
       if (!['user', 'admin'].includes(role)) {
-         return next(messageHandler(res, false, 'Invalid role!', 400));
+         return next(messageHandler('Invalid role!', 400));
       }
    }
 
@@ -383,7 +383,7 @@ export const deleteUserAdmin = asyncHandler(async (req, res, next) => {
 
    if (!user) {
       return next(
-         messageHandler(res, false,`User not found with id: ${userId}`,404));
+         messageHandler(`User not found with id: ${userId}`,404));
    }
 
    await User.deleteOne({ _id: user._id });

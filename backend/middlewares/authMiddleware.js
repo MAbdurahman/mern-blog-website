@@ -12,7 +12,7 @@ export const authenticateBearerToken = asyncHandler(async (req, res, next) => {
       // token = authHeader.substring(2);
       token = authHeader.split(' ')[1];
       if (!token) {
-         return messageHandler(res, false, 'User must be logged in', 401);
+         return messageHandler('User must be logged in', 401);
       }
    }
    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
@@ -25,7 +25,7 @@ export const authenticateUser = asyncHandler(async (req, res, next) => {
    const token = req.cookies?.blog_access;
    
    if (!token) {
-      return next(messageHandler(res, false, 'User must be signed in!', 401));
+      return next(messageHandler('User must be signed in!', 401));
    }
 
    const decodedData = await jwt.verify(token, process.env.JWT_SECRET);
@@ -40,11 +40,8 @@ export const authorizeRoles = (...roles) => {
    
    return (req, res, next) => {
       if (!roles.includes(req.user.role)) {
-         return next(
-            new ErrorHandler(
-               `Role: ${req.user.role} is not allowed to access this resource`, 403
-            )
-         );
+         return next(messageHandler(
+               `Role: ${req.user.role} is not allowed to access this resource`, 403));
       }
       next();
    }
